@@ -3,6 +3,8 @@ from django.http import JsonResponse
 from .books import books
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from .models import Book
+from .serializers import BookSerializer
 
 
 @api_view(['GET'])
@@ -15,15 +17,13 @@ def getRoutes(request):
 
 @api_view(['GET'])
 def getBooks(request):
-    return Response(books)
+    books = Book.objects.all()
+    serializedBooks = BookSerializer(books, many=True)
+    return Response(serializedBooks.data)
 
 
 @api_view(['GET'])
 def getBook(request, pk):
-    book = None
-    for item in books:
-        if item['_id'] == pk:
-            book = item
-            break
-
-    return Response(book)
+    book = Book.objects.get(_id=pk)
+    serializer = BookSerializer(book,many=False)
+    return Response(serializer.data)
