@@ -1,1 +1,14 @@
 from django.contrib import admin
+from .models import *
+
+# Register your models here.
+admin.site.register(Book)
+admin.site.register(Language)
+admin.site.register(BookShelf)
+admin.site.register(Publisher)
+admin.site.register(Author)
+admin.site.register(Genres)
+admin.site.register(Review)
+admin.site.register(Order)
+admin.site.register(OrderItem)
+admin.site.register(ShippingAddress)
