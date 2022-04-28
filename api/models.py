@@ -48,7 +48,6 @@ class Genres(models.Model):
 
 class Book(models.Model):
     _id = models.AutoField(primary_key=True, editable=False)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=200)
     publicationDate = models.DateField(blank=True, null=True)
     availableQuantity = models.IntegerField(null=True, blank=True, default=0)
@@ -74,6 +73,12 @@ class Book(models.Model):
         return f"{self.title} | {authors}"
 
 
+class UserBooks(models.Model):
+    _id = models.AutoField(primary_key=True, editable=False)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    book = models.ManyToManyField(Book)
+
+
 class Review(models.Model):
     _id = models.AutoField(primary_key=True, editable=False)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
@@ -91,13 +96,11 @@ class Order(models.Model):
     _id = models.AutoField(primary_key=True, editable=False)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     paymentMethod = models.CharField(max_length=200, blank=True, null=True)
+    orderType = models.CharField(max_length=200, blank=True, null=True)
     taxPrice = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
-    shippingPrice = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
     totalPrice = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
     paidAt = models.DateTimeField(auto_now_add=False, blank=True, null=True)
     isPaid = models.BooleanField(default=False)
-    isDelivered = models.BooleanField(default=False)
-    deliveredAt = models.DateTimeField(auto_now_add=False, blank=True, null=True)
     createdAt = models.DateTimeField(auto_now_add=True)
     discount = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
 
@@ -118,7 +121,7 @@ class OrderItem(models.Model):
         return str(self.name)
 
 
-class ShippingAddress(models.Model):
+class Shipping(models.Model):
     _id = models.AutoField(primary_key=True, editable=False)
     order = models.OneToOneField(Order, on_delete=models.CASCADE, null=True, blank=True)
     address = models.CharField(max_length=200, blank=True, null=True)
@@ -126,6 +129,8 @@ class ShippingAddress(models.Model):
     postalCode = models.CharField(max_length=200, blank=True, null=True)
     country = models.CharField(max_length=200, blank=True, null=True)
     ShippingPrice = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
+    isDelivered = models.BooleanField(default=False)
+    deliveredAt = models.DateTimeField(auto_now_add=False, blank=True, null=True)
 
     def __str__(self):
         return self.address
