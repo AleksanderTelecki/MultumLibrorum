@@ -62,9 +62,9 @@ class Book(models.Model):
     rating = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
     createdAt = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(null=True, blank=True)
-    html = models.FileField(null=True, blank=True)
-    epub = models.FileField(null=True, blank=True)
-    txt = models.FileField(null=True, blank=True)
+    pdf = models.FileField(null=True, blank=True, upload_to='uploads/pdf')
+    epub = models.FileField(null=True, blank=True, upload_to='uploads/epub')
+    txt = models.FileField(null=True, blank=True, upload_to='uploads/txt')
 
     def __str__(self):
         authors = ""
