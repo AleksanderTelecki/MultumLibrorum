@@ -18,7 +18,6 @@ def getRoutes(request):
 
 @api_view(['GET'])
 def getBooks(request):
-    gutenbergDataMigrator()
     books = Book.objects.all()
     serializedBooks = BookSerializer(books, many=True)
     return Response(serializedBooks.data)
@@ -27,5 +26,5 @@ def getBooks(request):
 @api_view(['GET'])
 def getBook(request, pk):
     book = Book.objects.get(_id=pk)
-    serializer = BookSerializer(book,many=False)
+    serializer = BookSerializer(book, many=False)
     return Response(serializer.data)

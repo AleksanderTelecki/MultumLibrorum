@@ -2,7 +2,7 @@ books = [
   {
     '_id': '1',
     'name': 'Putins People',
-    'image': '/images/Putins People.jpg',
+    'image': '/storage/Putins People.jpg',
     'description':
       'THE SUNDAY TIMES BESTSELLER, An outstanding expose of Putin and his criminal pals',
     'author': 'Catherine Belton',
@@ -18,7 +18,7 @@ books = [
   {
     '_id': '2',
     'name': 'Crying in H Mart',
-    'image': '/images/Crying in H Mart.jpg',
+    'image': '/storage/Crying in H Mart.jpg',
     'description':
       'The New York Times bestseller from the Grammy-nominated indie rockstar Japanese Breakfast, an unflinching, deeply moving memoir about growing up mixed-race, Korean food, losing her Korean mother, and forging her own identity in the wake of her loss, which brought her to reclaim the gifts of taste, language, and history her mother had given her.',
     'author': 'Michelle Zauner',
@@ -34,7 +34,7 @@ books = [
   {
     '_id': '3',
     'name': 'This is Going to Hurt',
-    'image': '/images/This is Going to Hurt.jpg',
+    'image': '/storage/This is Going to Hurt.jpg',
     'description':
       'Now A Major BBC Series Starring Ben Whishaw.',
     'author': 'Adam Kay',
@@ -50,7 +50,7 @@ books = [
   {
     '_id': '4',
     'name': 'Critical',
-    'image': '/images/Critical.jpg',
+    'image': '/storage/Critical.jpg',
     'description':
       'A very special book filled with stories of survival, hope and loss.',
     'author': 'Dr Matt Morgan',
@@ -66,7 +66,7 @@ books = [
   {
     '_id': '5',
     'name': 'A Lick and a Promise',
-    'image': '/images/A Lick and a Promise.jpg',
+    'image': '/storage/A Lick and a Promise.jpg',
     'description':
       'A Lick and a Promise is the debut poetry collection of one of Irelands most famed female musicians, Imelda May.',
     'author': 'Imelda May',
@@ -82,7 +82,7 @@ books = [
   {
     '_id': '6',
     'name': 'Just Kids',
-    'image': '/images/Just Kids.jpg',
+    'image': '/storage/Just Kids.jpg',
     'description':
       'Winner of the 2010 Non-Fiction National Book Award Patti Smiths definitive memoir: an evocative, honest and moving coming-of-age story of her extraordinary relationship with the artist Robert Mapplethorpe',
     'author': 'Patti Smith',
@@ -98,7 +98,7 @@ books = [
     {
         '_id': '7',
         'name': 'Berserk Deluxe Volume 3',
-        'image': '/images/Berserk Deluxe Volume 3.jpg',
+        'image': '/storage/Berserk Deluxe Volume 3.jpg',
         'description':
             'The hundred-year war between the kingdoms of Midland and Tudor nears an end as the legendary Band of the Hawk mercenaries, led by the charismatic Griffith and his fearless berserker champion Guts, turn the tide in Midland s favor. But impending victory ignites a secret war within Midland, as those seeking courtly favor see the ambitious Griffith as an obstacle to power. And nothing is more powerful than an enemy unseen! Collects Berserk volumes 7-9.\n' +
             '\n' +
@@ -116,7 +116,7 @@ books = [
   {
     '_id': '8',
     'name': 'No Longer Human',
-    'image': '/images/No Longer Human.jpg',
+    'image': '/storage/No Longer Human.jpg',
     'description':
         'Plagued by a maddening anxiety ? the terrible disconnect between his own concept of happiness and the joy of the rest of the world ? Yozo Oba plays the clown in his dissolute life, holding up a mask for those around him as he spirals ever downward, locked arm-in-arm with death. 30,000 first printing.\n' +
         '\n' +

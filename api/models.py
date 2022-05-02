@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-# Create your models here.
 class Author(models.Model):
     _id = models.AutoField(primary_key=True, editable=False)
     name = models.CharField(max_length=100)
@@ -61,16 +60,13 @@ class Book(models.Model):
     numReviews = models.IntegerField(null=True, blank=True, default=0)
     rating = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
     createdAt = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(null=True, blank=True)
-    pdf = models.FileField(null=True, blank=True, upload_to='uploads/pdf')
-    epub = models.FileField(null=True, blank=True, upload_to='uploads/epub')
-    txt = models.FileField(null=True, blank=True, upload_to='uploads/txt')
+    image = models.ImageField(null=True, blank=True, upload_to='jpg')
+    pdf = models.FileField(null=True, blank=True, upload_to='pdf')
+    epub = models.FileField(null=True, blank=True, upload_to='epub')
+    txt = models.FileField(null=True, blank=True, upload_to='txt')
 
     def __str__(self):
-        authors = ""
-        for item in self.author.all():
-            authors += item.name
-        return f"{self.title} | {authors}"
+        return f"{self.title}"
 
 
 class UserBooks(models.Model):

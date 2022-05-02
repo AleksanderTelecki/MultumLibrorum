@@ -8,6 +8,7 @@ django = "*"
 pillow = "*"
 requests = "*"
 shortuuid = "*"
+faker = "*"
 
 [dev-packages]
 
