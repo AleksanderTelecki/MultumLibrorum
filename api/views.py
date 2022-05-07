@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from rest_framework.generics import ListAPIView
+from rest_framework.pagination import PageNumberPagination
+
 from .books import books
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -16,11 +19,10 @@ def getRoutes(request):
     return Response(routes)
 
 
-@api_view(['GET'])
-def getBooks(request):
-    books = Book.objects.all()
-    serializedBooks = BookSerializer(books, many=True)
-    return Response(serializedBooks.data)
+class APIBookListView(ListAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    pagination_class = PageNumberPagination
 
 
 @api_view(['GET'])

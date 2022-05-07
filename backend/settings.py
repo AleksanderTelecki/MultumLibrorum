@@ -52,6 +52,11 @@ MIDDLEWARE = [
 
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 30
+}
+
 ROOT_URLCONF = 'backend.urls'
 
 TEMPLATES = [
@@ -118,11 +123,9 @@ USE_TZ = True
 STATIC_URL = 'static/'
 MEDIA_URL = '/storage/'
 
-
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
-
 
 MEDIA_ROOT = 'static/storage'
 
