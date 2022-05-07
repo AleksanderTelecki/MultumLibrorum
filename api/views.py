@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from rest_framework.generics import ListAPIView
 from rest_framework.pagination import PageNumberPagination
 

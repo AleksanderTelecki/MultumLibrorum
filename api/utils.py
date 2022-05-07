@@ -5,6 +5,8 @@ import shortuuid
 from faker import Faker
 import datetime
 import random
+from pathlib import Path
+import os
 
 
 def getListOfItems(data, json_object):
@@ -31,16 +33,18 @@ def check_and_save(model, items):
 
 
 def gutenbergDataMigrator():
-    # change page number to get new books
-
-    for i in range(60, 100):
+    counter = 0
+    for i in range(105, 150):
         print(i)
         response_api = requests.get(f"https://gutendex.com/books/?copyright=false&page={i}")
         raw_data = response_api.text
         parsed_data = json.loads(raw_data)
 
         results = parsed_data['results']
+
         for book in results:
+            counter += 1
+            print(counter)
             authors = [item['name'] for item in book['authors']]
             authors_object = check_and_save(Author, authors)
             genres = getListOfItems(book, 'subjects')
@@ -53,28 +57,30 @@ def gutenbergDataMigrator():
             title = book['title']
 
             uuid = shortuuid.uuid()
+            fake = Faker()
+            isbn = fake.isbn13()
 
             try:
                 txt = download_file(book['formats']['text/plain'],
-                                    f"static/storage/txt/{book['title']}-{uuid}.txt")
+                                    f"static/storage/txt/{isbn}-{uuid}.txt")
             except:
                 continue
 
             try:
                 epub = download_file(book['formats']['application/epub+zip'],
-                                     f"static/storage/epub/{book['title']}-{uuid}.epub")
+                                     f"static/storage/epub/{isbn}-{uuid}.epub")
             except:
                 continue
 
             try:
                 image_url = book['formats']['image/jpeg'].replace('small', 'medium')
-                image = download_file(image_url, f"static/storage/jpg/{book['title']}-{uuid}.jpg")
+                image = download_file(image_url, f"static/storage/jpg/{isbn}-{uuid}.jpg")
             except:
                 continue
 
-            fake = Faker()
             start_date = datetime.date(year=1900, month=1, day=1)
-            publication_date = fake.date_between(start_date=start_date, end_date='+110y')
+            end_date = datetime.date(year=2020, month=1, day=1)
+            publication_date = fake.date_between(start_date=start_date, end_date=end_date)
 
             publisher = random.choice(list(Publisher.objects.all()))
 
@@ -88,6 +94,7 @@ def gutenbergDataMigrator():
             book.bookshelf.add(*bookshelf_object)
             book.genres.add(*genres_object)
             book.publisher = publisher
+            book.isbn13 = isbn
 
             book.image.name = image[14:]
             book.epub.name = epub[14:]
