@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Book, Language, Genres, Author, BookShelf
+from .models import Book, Language, Genres, Author, BookShelf,Publisher
 
 
 # TODO: ADD MORE SERIALIZERS
@@ -29,7 +29,14 @@ class BookSerializer(serializers.ModelSerializer):
         slug_field='name'
     )
 
+    publisher = serializers.SlugRelatedField(
+        many=False,
+        queryset=Publisher.objects.all(),
+        slug_field='name'
+    )
+
     class Meta:
         model = Book
         fields = '__all__'
         # depth = 1
+

@@ -20,7 +20,7 @@ def getRoutes(request):
 
 
 class APIBookListView(ListAPIView):
-    queryset = Book.objects.all()
+    queryset = Book.objects.get_queryset().order_by('_id')
     serializer_class = BookSerializer
     pagination_class = PageNumberPagination
 
