@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db.models.signals import pre_save
 
-
+#TODO: DELETE CODE
 def updateUser(sender, instance, **kwargs):
     user = instance
     if user.email != '':

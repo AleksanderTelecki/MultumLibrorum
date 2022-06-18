@@ -1,10 +1,10 @@
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from django.contrib.auth.models import User
-from rest_framework_simplejwt.tokens import RefreshToken
-from .models import Book, Language, Genres, Author, BookShelf,Publisher
+from .models import Book, Language, Genres, Author, BookShelf, Publisher
+from djoser.serializers import UserCreateSerializer
 
+User = get_user_model()
 
-# TODO: ADD MORE SERIALIZERS
 class BookSerializer(serializers.ModelSerializer):
     language = serializers.SlugRelatedField(
         many=True,
@@ -42,14 +42,14 @@ class BookSerializer(serializers.ModelSerializer):
         # depth = 1
 
 
-class UserSerializer(serializers.ModelSerializer):
-    name = serializers.SerializerMethodField(read_only=True)
+class UserSerializer(UserCreateSerializer):
     _id = serializers.SerializerMethodField(read_only=True)
     isAdmin = serializers.SerializerMethodField(read_only=True)
+    name = serializers.SerializerMethodField(read_only=True)
 
-    class Meta:
+    class Meta(UserCreateSerializer.Meta):
         model = User
-        fields = ['id', '_id', 'username', 'email', 'name', 'isAdmin']
+        fields = ['_id', 'email', 'name', 'username', 'password', 'isAdmin']
 
     def get_isAdmin(self, obj):
         return obj.is_staff
@@ -58,17 +58,6 @@ class UserSerializer(serializers.ModelSerializer):
         return obj.id
 
     def get_name(self, obj):
-        name = obj.first_name
+        name = obj.first_name + obj.last_name
         return name
 
-
-class UserSerializerWithToken(UserSerializer):
-    token = serializers.SerializerMethodField(read_only=True)
-
-    class Meta:
-        model = User
-        fields = ['id', '_id', 'username', 'email', 'name', 'isAdmin', 'token']
-
-    def get_token(self, obj):
-        token = RefreshToken.for_user(obj)
-        return str(token.access_token)

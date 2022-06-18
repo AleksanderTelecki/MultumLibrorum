@@ -9,6 +9,7 @@ pillow = "*"
 requests = "*"
 shortuuid = "*"
 faker = "*"
+djoser = "*"
 
 [dev-packages]
 

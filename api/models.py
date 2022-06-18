@@ -1,5 +1,53 @@
+from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, PermissionsMixin
+
+
+class UserAccountManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError('Users must have an email address')
+
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+
+        user.set_password(password)
+        user.save()
+
+        return user
+
+    def create_superuser(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError('Users must have an email address')
+
+        email = self.normalize_email(email)
+        super_user = self.model(email=email, **extra_fields)
+        super_user.set_password(password)
+        super_user.save()
+
+        return super_user
+
+
+class UserAccount(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(max_length=255, unique=True)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+
+    objects = UserAccountManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'is_staff', 'is_superuser']
+
+    def get_full_name(self):
+        return self.first_name
+
+    def get_short_name(self):
+        return self.first_name
+
+    def __str__(self):
+        return self.email
 
 
 class Author(models.Model):
@@ -72,14 +120,14 @@ class Book(models.Model):
 
 class UserBooks(models.Model):
     _id = models.AutoField(primary_key=True, editable=False)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(UserAccount, on_delete=models.CASCADE)
     book = models.ManyToManyField(Book)
 
 
 class Review(models.Model):
     _id = models.AutoField(primary_key=True, editable=False)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(UserAccount, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=200, blank=True, null=True)
     review = models.TextField(null=True, blank=True)
     rating = models.IntegerField(null=True, blank=True)
@@ -91,7 +139,7 @@ class Review(models.Model):
 
 class Order(models.Model):
     _id = models.AutoField(primary_key=True, editable=False)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(UserAccount, on_delete=models.SET_NULL, null=True)
     paymentMethod = models.CharField(max_length=200, blank=True, null=True)
     orderType = models.CharField(max_length=200, blank=True, null=True)
     taxPrice = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)

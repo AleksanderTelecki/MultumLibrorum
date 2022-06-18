@@ -8,8 +8,5 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from ..models import Book
-from ..serializers import BookSerializer, UserSerializer, UserSerializerWithToken
-from ..utils import gutenbergDataMigrator
+from ..serializers import BookSerializer
 
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework_simplejwt.views import TokenObtainPairView

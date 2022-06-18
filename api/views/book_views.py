@@ -3,7 +3,7 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from ..models import Book
-from ..serializers import BookSerializer, UserSerializer, UserSerializerWithToken
+from ..serializers import BookSerializer
 
 
 class APIBookListView(ListAPIView):
