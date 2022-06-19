@@ -151,16 +151,17 @@ EMAIL_HOST_USER = 'multumlibrorum@gmail.com'
 EMAIL_HOST_PASSWORD = 'yebqcvickjoxasfl'
 EMAIL_USE_TLS = True
 
+# TODO : ADD MAIL CONFIRMATION
 #DJOSER SETTINGS
 DJOSER = {
     'LOGIN_FIELD': 'email',
-    'SEND_ACTIVATION_EMAIL': True,
+    # 'SEND_ACTIVATION_EMAIL': True,
     'USER_CREATE_PASSWORD_RETYPE': True,
-    'USERNAME_CHANGED_EMAIL_CONFIRMATION': True,
-    'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
+    # 'USERNAME_CHANGED_EMAIL_CONFIRMATION': True,
+    # 'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
     'SET_PASSWORD_RETYPE': True,
-    'PASSWORD_RESET_CONFIRM_URL': '/password/reset/confirm/{uid}/{token}',
-    'USERNAME_RESET_CONFIRM_URL': '/username/reset/confirm/{uid}/{token}',
+    # 'PASSWORD_RESET_CONFIRM_URL': '/password/reset/confirm/{uid}/{token}',
+    # 'USERNAME_RESET_CONFIRM_URL': '/username/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL': '/activate/{uid}/{token}',
     'SERIALIZERS': {
         'user_create': 'api.serializers.UserSerializer',

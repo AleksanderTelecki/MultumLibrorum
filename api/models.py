@@ -96,7 +96,7 @@ class Genres(models.Model):
 class Book(models.Model):
     _id = models.AutoField(primary_key=True, editable=False)
     title = models.CharField(max_length=200)
-    isbn13 = models.CharField(max_length=17,blank=True, null=True)
+    isbn13 = models.CharField(max_length=17, blank=True, null=True)
     publicationDate = models.DateField(blank=True, null=True)
     availableQuantity = models.IntegerField(null=True, blank=True, default=0)
     price = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
