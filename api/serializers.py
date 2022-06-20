@@ -5,6 +5,7 @@ from djoser.serializers import UserCreateSerializer
 
 User = get_user_model()
 
+
 class BookSerializer(serializers.ModelSerializer):
     language = serializers.SlugRelatedField(
         many=True,
@@ -40,6 +41,12 @@ class BookSerializer(serializers.ModelSerializer):
         model = Book
         fields = '__all__'
         # depth = 1
+
+
+class GenreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Genres
+        fields = '__all__'
 
 
 class UserSerializer(UserCreateSerializer):
